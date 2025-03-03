@@ -11,17 +11,26 @@
             overflow: hidden;
         }
         body {
-            background: url('https://github.com/1TerryGoodCoder/HeartStopper/blob/main/assets/jumpscareImage.jpg?raw=true') no-repeat center center fixed;
+            background: url('https://github.com/ReemanS/heartstopper/blob/main/src/assets/jumpscareImage.jpg?raw=true') no-repeat center center fixed;
             background-size: cover;
         }
     </style>
 </head>
 <body>
-    <audio id="jumpscareSound" src="https://github.com/1TerryGoodCoder/HeartStopper/raw/refs/heads/main/assets/jumpscareSound.mp3" autoplay></audio>
+    <audio id="jumpscareSound" src="https://github.com/ReemanS/heartstopper/raw/refs/heads/main/src/assets/jumpscareSound.mp3" autoplay></audio>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const sound = document.getElementById('jumpscareSound');
-            sound.play().catch(error => console.log('Autoplay failed:', error));
+            sound.muted = true;  // Start muted to bypass restrictions
+            sound.play().then(() => {
+                sound.muted = false;  // Unmute after playback starts
+            }).catch(error => {
+                console.log('Autoplay blocked. Trying to play after user interaction.');
+                document.body.addEventListener('click', () => {
+                    sound.play();
+                }, { once: true });
+            });
         });
     </script>
 </body>
