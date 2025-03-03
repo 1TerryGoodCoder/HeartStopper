@@ -20,18 +20,18 @@
     <audio id="jumpscareSound" src="https://github.com/1TerryGoodCoder/JumpScare/raw/refs/heads/main/assets/jumpscareSound.mp3" autoplay></audio>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        function playSound() {
             const sound = document.getElementById('jumpscareSound');
-            sound.muted = true;  // Start muted to bypass restrictions
+            sound.muted = true;
             sound.play().then(() => {
-                sound.muted = false;  // Unmute after playback starts
+                sound.muted = false;
             }).catch(error => {
-                console.log('Autoplay blocked. Trying to play after user interaction.');
-                document.body.addEventListener('click', () => {
-                    sound.play();
-                }, { once: true });
+                console.log('Autoplay blocked. Playing on user interaction.');
             });
-        });
+        }
+
+        document.addEventListener('DOMContentLoaded', playSound);
+        document.body.addEventListener('click', playSound);
     </script>
 </body>
 </html>
